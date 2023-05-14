@@ -1,12 +1,14 @@
 <?php
 
-namespace Database\Factories;
+namespace Modules\Auth\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use function fake;
+use function now;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Modules\Auth\Models\User>
  */
 class UserFactory extends Factory
 {
