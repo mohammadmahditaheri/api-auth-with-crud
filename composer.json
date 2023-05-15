@@ -26,6 +26,7 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
+            "Modules\\Core\\": "Modules/Core",
             "Modules\\Auth\\": "Modules/Auth",
             "Modules\\Blog\\": "Modules/Blog"
         }

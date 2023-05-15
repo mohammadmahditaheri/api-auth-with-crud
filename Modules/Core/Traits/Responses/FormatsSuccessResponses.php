@@ -1,9 +1,10 @@
 <?php
 
-namespace Modules\Auth\Traits\Responses;
+namespace Modules\Core\Traits\Responses;
 
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
+use function response;
 
 trait FormatsSuccessResponses
 {

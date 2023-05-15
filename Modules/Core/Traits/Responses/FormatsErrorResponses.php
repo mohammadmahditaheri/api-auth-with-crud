@@ -1,9 +1,10 @@
 <?php
 
-namespace Modules\Auth\Traits\Responses;
+namespace Modules\Core\Traits\Responses;
 
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Symfony\Component\HttpFoundation\Response;
+use function response;
 
 trait FormatsErrorResponses
 {
