@@ -12,4 +12,4 @@ Route::post('/register', RegisterController::class)
 
 // register second action
 Route::post('/finalize-register', FinalizeRegisterController::class)
-    ->name('finalize.register');
+    ->name('finalize-register');
