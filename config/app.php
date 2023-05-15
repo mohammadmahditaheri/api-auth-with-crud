@@ -175,6 +175,7 @@ return [
         |--------------------------------------------------------------------------
         */
         \Modules\Auth\Providers\ModuleServiceProvider::class,
+        \Modules\Blog\Providers\ModuleServiceProvider::class,
 
     ])->toArray(),
 
