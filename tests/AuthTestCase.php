@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Testing\TestResponse;
 use Modules\Auth\Contracts\Repositories\UserRepositoryInterface;
 use Modules\Auth\Traits\Responses\FormatsAuthResponses;
@@ -12,6 +13,7 @@ abstract class AuthTestCase extends TestCase
 
     const FINALIZE_ROUTE = 'finalize-register';
     const REGISTER_ROUTE = 'register';
+    const LOGIN_ROUTE = 'login';
     const TABLE = 'users';
     protected array $userData = [];
     public static string $requiredErrorMessage = 'The email field is required.';
@@ -104,5 +106,17 @@ abstract class AuthTestCase extends TestCase
         );
     }
 
-
+    /**
+     * fetch secret for email
+     *
+     * @param string $email
+     * @return mixed
+     */
+    protected function fetchSecret(string $email): mixed
+    {
+        return DB::table(self::TABLE)
+            ->select('two_factor_secret')
+            ->where('email', $email)
+            ->first()->two_factor_secret;
+    }
 }

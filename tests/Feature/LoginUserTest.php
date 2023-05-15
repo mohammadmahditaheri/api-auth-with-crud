@@ -2,17 +2,34 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Support\Facades\DB;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Testing\TestResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Tests\AuthTestCase as TestCase;
 
-class FinalizeRegisterTest extends TestCase
+class LoginUserTest extends TestCase
 {
+    /**
+     * send login request with credentials
+     *
+     * @param string $email
+     * @param string $password
+     * @return TestResponse
+     */
+    protected function postLogin(string $email, string $password): TestResponse
+    {
+        return $this->postJson(route(self::LOGIN_ROUTE, [
+            'email' => $email,
+            'password' => $password
+        ]));
+    }
+
     /**
      * @test
      */
-    public function it_can_finalize_registration(): void
+    public function it_can_login_with_default_data(): void
     {
         // send register request
         $registerResponse = $this->sendRegisterRequest();
@@ -39,7 +56,16 @@ class FinalizeRegisterTest extends TestCase
             ->assertJson([
                 'message' => self::$registeredMessage
             ]);
-    }
 
-    // TODO: further failing cases
+        // send login request
+        $response = $this->postLogin(
+            email: $this->userData['email'],
+            password: $this->userData['password']
+        );
+
+        $response->assertOk()
+            ->assertJsonStructure([
+                'user', 'token'
+            ]);
+    }
 }
