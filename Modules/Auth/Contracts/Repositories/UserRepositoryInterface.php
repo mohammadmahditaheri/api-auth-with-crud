@@ -9,12 +9,12 @@ interface UserRepositoryInterface
     /**
      * find the user by id
      */
-    public function find(int $id);
+    public function find(int $id): User|null;
 
     /**
      * find the user by id
      */
-    public function findByEmail(string $email);
+    public function findByEmail(string $email): User|null;
 
     /**
      * create a user in the repository

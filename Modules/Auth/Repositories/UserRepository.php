@@ -9,9 +9,17 @@ class UserRepository implements UserRepositoryInterface
 {
     const EXPIRES_AFTER_IN_MIN = 5;
 
-    public function find(int $id)
+    public function find(int $id): User|null
     {
         return User::where('id', $id)->first();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function findByEmail(string $email): User|null
+    {
+        return User::where('email', $email)->first();
     }
 
     /**
@@ -38,7 +46,11 @@ class UserRepository implements UserRepositoryInterface
      */
     public function update(User $user, array $newData): bool
     {
-        return $user->update($newData);
+        try {
+            return $user->update($newData);
+        } catch (\Exception $exception) {
+            return false;
+        }
     }
 
     /**
@@ -46,14 +58,6 @@ class UserRepository implements UserRepositoryInterface
      */
     public function emailExists(string $email): bool
     {
-        return (bool) User::where('email', $email)->exists();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function findByEmail(string $email)
-    {
-        return User::where('email', $email)->first();
+        return (bool)User::where('email', $email)->exists();
     }
 }
