@@ -2,68 +2,14 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Testing\TestResponse;
 use Modules\Auth\Contracts\Repositories\UserRepositoryInterface;
-use Modules\Auth\Contracts\Services\MailSecretHandler\MailHandlerInterface;
 use Modules\Auth\Traits\Responses\FormatsAuthResponses;
 use Symfony\Component\HttpFoundation\Response;
-use Tests\TestCase;
+use Tests\AuthTestCase as TestCase;
 
 class RegisterUserTest extends TestCase
 {
-    use FormatsAuthResponses;
-
-    protected array $userData = [];
-    public static string $requiredErrorMessage = 'The email field is required.';
-    public static string $invalidEmailError = 'The email field must be a valid email address.';
-    public static string $notStringError = 'The email field must be a string.';
-
-    /**
-     * @var UserRepositoryInterface $repository
-     */
-    protected UserRepositoryInterface $repository;
-    const TABLE = 'users';
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        // user data
-        $this->userData = [
-            'first_name' => 'Mohammad Mahdi',
-            'last_name' => 'Taheri',
-            'email' => 'mmtaheri@gmail.com',
-        ];
-
-        // init the repository
-        $this->repository = resolve(UserRepositoryInterface::class);
-    }
-
-    /**
-     * do send the register request with email
-     *
-     * @param string|null $email
-     * @return TestResponse
-     */
-    protected function sendRegisterRequest(string $email = null): TestResponse
-    {
-        if (!$email) {
-            $email = $this->userData['email'];
-        }
-
-        return $this->postJson(route('register'),
-            ['email' => $email]
-        );
-    }
-
-    /**
-     * |--------------------
-     * | Tests begin
-     * |--------------------
-     */
-
     /**
      * @test
      */
@@ -134,7 +80,7 @@ class RegisterUserTest extends TestCase
     /**
      * @test
      */
-    public function it_cannot_register_wit_invalid_email(): void
+    public function it_cannot_register_with_invalid_email(): void
     {
         // send email as not string
         $response = $this->postJson(route('register'),
@@ -166,5 +112,41 @@ class RegisterUserTest extends TestCase
                     ]
                 ]
             ]);
+    }
+
+    /**
+     * @test
+     */
+    public function it_cannot_register_without_post_method(): void
+    {
+        // GET
+        $response = $this->getJson(route('register'),
+            ['email' => $this->userData['email']]
+        );
+        $response->assertStatus(Response::HTTP_METHOD_NOT_ALLOWED);
+
+        // PUT
+        $response = $this->putJson(route('register'),
+            ['email' => $this->userData['email']]
+        );
+        $response->assertStatus(Response::HTTP_METHOD_NOT_ALLOWED);
+
+        // PATCH
+        $response = $this->patchJson(route('register'),
+            ['email' => $this->userData['email']]
+        );
+        $response->assertStatus(Response::HTTP_METHOD_NOT_ALLOWED);
+
+        // DELETE
+        $response = $this->deleteJson(route('register'),
+            ['email' => $this->userData['email']]
+        );
+        $response->assertStatus(Response::HTTP_METHOD_NOT_ALLOWED);
+
+        // DELETE
+        $response = $this->head(route('register'),
+            ['email' => $this->userData['email']]
+        );
+        $response->assertStatus(Response::HTTP_METHOD_NOT_ALLOWED);
     }
 }
