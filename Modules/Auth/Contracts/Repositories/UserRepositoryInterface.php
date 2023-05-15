@@ -42,4 +42,13 @@ interface UserRepositoryInterface
      * @return bool
      */
     public function secretMatches(User $user, string $secret): bool;
+
+    /**
+     * checks if login credentials match or not
+     *
+     * @param string $email
+     * @param string $password
+     * @return bool
+     */
+    public function loginCredentialsMatch(string $email, string $password): bool;
 }

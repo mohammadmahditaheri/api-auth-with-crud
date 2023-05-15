@@ -2,6 +2,7 @@
 
 namespace Modules\Auth\Repositories;
 
+use Illuminate\Support\Facades\Hash;
 use Modules\Auth\Contracts\Repositories\UserRepositoryInterface;
 use Modules\Auth\Models\User;
 
@@ -72,5 +73,15 @@ class UserRepository implements UserRepositoryInterface
     {
         return $user->two_factor_secret == $secret &&
             now() < $user->secret_expires_at;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function loginCredentialsMatch(string $email, string $password): bool
+    {
+        $user = $this->findByEmail($email);
+
+        return $user && Hash::check($password, $user->password);
     }
 }
