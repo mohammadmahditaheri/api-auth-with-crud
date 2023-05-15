@@ -35,9 +35,9 @@ interface ArticleRepositoryInterface
      *
      * @param Article $article
      * @param array $newData
-     * @return bool
+     * @return Article
      */
-    public function update(Article $article, array $newData): bool;
+    public function update(Article $article, array $newData): Article;
 
     /**
      * delete an existing article from repository
@@ -46,4 +46,12 @@ interface ArticleRepositoryInterface
      * @return bool
      */
     public function delete(int $articleId): bool;
+
+    /**
+     * determines weather the article with id exists in repository
+     *
+     * @param int $articleId
+     * @return bool
+     */
+    public function exists(int $articleId): bool;
 }

@@ -11,7 +11,7 @@ class ArticleRepository implements ArticleRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function getAndSearch(array $params, int $perPage)
+    public function getAndSearch(array $params = null, int $perPage = null)
     {
         return Article::
             // user
@@ -49,9 +49,11 @@ class ArticleRepository implements ArticleRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function update(Article $article, array $newData): bool
+    public function update(Article $article, array $newData): Article
     {
-        return $article->update($newData);
+        $article->update($newData);
+
+        return $article;
     }
 
     /**
@@ -66,5 +68,13 @@ class ArticleRepository implements ArticleRepositoryInterface
         } catch (\Exception $exception) {
             return false;
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function exists(int $articleId): bool
+    {
+        return (bool) Article::where('id', $articleId)->exists();
     }
 }
