@@ -4,19 +4,38 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Blog\Http\Controllers\V1\ArticleController;
 
-Route::prefix('/articles')->controller(ArticleController::class)->group(function () {
-    // commands (protected)
-    Route::group(['middleware' => ['auth:sanctum']], function () {
-        Route::post('/');
-        Route::put('/{article}')->whereNumber('article');
-        Route::delete('/{article}')->whereNumber('article');
+Route::name('articles.')->middleware('auth:sanctum')->prefix('/articles')->group(function () {
+    Route::controller(ArticleController::class)->group(function () {
+        // commands (protected)
+        Route::post('/', 'store')->name('store');
+        Route::put('/{article}', 'update')
+            ->whereNumber('article')
+            ->middleware([
+                'article_exists',
+                'owns_article'
+            ])
+            ->name('update');
+        Route::delete('/{article}', 'destroy')
+            ->whereNumber('article')
+            ->middleware([
+                'article_exists',
+                'owns_article'
+            ])
+            ->name('delete');
 
         // get own articles
-        Route::get('/own');
+        Route::get('/own', 'showOwn')->name('own');
     });
+});
 
+Route::name('articles.')->prefix('/articles')->controller(ArticleController::class)->group(function () {
+    // index
+    Route::get('/', 'index')
+        ->name('index');
 
-    // queries (public)
-    Route::get('/');
-    Route::get('/{article}')->whereNumber('article');
+    // show
+    Route::get('/{article}', 'show')
+        ->whereNumber('article')
+        ->middleware('article_exists')
+        ->name('show');
 });
