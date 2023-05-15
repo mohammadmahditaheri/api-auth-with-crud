@@ -8,7 +8,7 @@ use Modules\Auth\Contracts\Repositories\UserRepositoryInterface;
 use Modules\Auth\Traits\Responses\FormatsAuthResponses;
 use Symfony\Component\HttpFoundation\Response;
 
-class EmailExists
+class EmailDoesNotExist
 {
     use FormatsAuthResponses;
 
@@ -19,13 +19,14 @@ class EmailExists
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
     {
         if ($request->exists('email') &&
             $request->input('email') != null &&
-            $this->repository->emailExists($request->input('email'))) {
+            $this->repository->emailExists($request->input('email'))
+        ) {
             return $this->secretMailedSuccessfully();
         }
 

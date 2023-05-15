@@ -17,8 +17,12 @@ class UserRepository implements UserRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function findByEmail(string $email): User|null
+    public function findByEmail(string $email = ''): User|null
     {
+        if (!$email) {
+            return null;
+        };
+
         return User::where('email', $email)->first();
     }
 
@@ -59,5 +63,14 @@ class UserRepository implements UserRepositoryInterface
     public function emailExists(string $email): bool
     {
         return (bool)User::where('email', $email)->exists();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function secretMatches(User $user, string $secret): bool
+    {
+        return $user->two_factor_secret == $secret &&
+            now() < $user->secret_expires_at;
     }
 }

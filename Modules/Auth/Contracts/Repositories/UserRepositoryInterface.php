@@ -35,4 +35,11 @@ interface UserRepositoryInterface
      * checks weather the email address is already exists in database
      */
     public function emailExists(string $email): bool;
+
+    /**
+     * @param User $user
+     * @param string $secret
+     * @return bool
+     */
+    public function secretMatches(User $user, string $secret): bool;
 }

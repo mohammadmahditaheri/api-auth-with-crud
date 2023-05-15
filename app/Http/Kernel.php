@@ -67,6 +67,7 @@ class Kernel extends HttpKernel
         /**
          * Auth
          */
-        'email_exists' => \Modules\Auth\Http\Middleware\EmailExists::class,
+        'email_doesnt_exist' => \Modules\Auth\Http\Middleware\EmailDoesNotExist::class,
+        'secret_matches' => \Modules\Auth\Http\Middleware\SecretMatches::class,
     ];
 }
