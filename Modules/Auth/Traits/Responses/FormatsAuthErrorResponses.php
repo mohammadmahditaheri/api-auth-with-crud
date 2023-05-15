@@ -2,6 +2,8 @@
 
 namespace Modules\Auth\Traits\Responses;
 
+use Modules\Core\Traits\Responses\FormatsErrorResponses;
+
 trait FormatsAuthErrorResponses
 {
     use FormatsErrorResponses;

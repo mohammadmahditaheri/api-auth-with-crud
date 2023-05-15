@@ -3,6 +3,7 @@
 namespace Modules\Auth\Traits\Responses;
 
 use Illuminate\Http\Response;
+use Modules\Core\Traits\Responses\FormatsSuccessResponses;
 
 trait FormatsAuthResponses
 {
