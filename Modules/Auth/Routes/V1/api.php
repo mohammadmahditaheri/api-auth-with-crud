@@ -31,4 +31,7 @@ Route::post('/forgot-password', [ResetPasswordController::class, 'forgotPassword
     ]);
 
 // reset password
-Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']);
+Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])
+    ->middleware([
+        'email_exists_for_reset',
+    ]);
