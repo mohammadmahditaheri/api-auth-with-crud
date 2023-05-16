@@ -24,7 +24,6 @@ class ArticleController extends Controller
      */
     public function index(FetchArticlesRequest $request): Response
     {
-        dump($request->validated());
         return $this->paginatedArticlesResponse(
             articles: $this->repository->getAndSearch(
                 params: $request->validated(),
