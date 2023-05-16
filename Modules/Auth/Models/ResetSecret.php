@@ -17,4 +17,6 @@ class ResetSecret extends Model
         'secret_is_fresh',
         'created_at'
     ];
+
+    public $timestamps = false;
 }
