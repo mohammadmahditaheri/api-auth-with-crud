@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Auth\Contracts\Services\MailSecretHandler;
+namespace Modules\Auth\Contracts\Actions\MailSecretHandler;
 
 use Modules\Auth\Models\User;
 

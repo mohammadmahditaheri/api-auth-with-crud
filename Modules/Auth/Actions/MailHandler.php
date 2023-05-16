@@ -2,8 +2,8 @@
 
 namespace Modules\Auth\Actions;
 
+use Modules\Auth\Contracts\Actions\MailSecretHandler\MailHandlerInterface;
 use Modules\Auth\Contracts\Repositories\UserRepositoryInterface;
-use Modules\Auth\Contracts\Services\MailSecretHandler\MailHandlerInterface;
 use Modules\Auth\Models\User;
 use Modules\Auth\Services\SendRegistrationSecret\SendRegistrationSecretContext;
 use Modules\Auth\Services\SendRegistrationSecret\Strategies\ConcreteStrategy;

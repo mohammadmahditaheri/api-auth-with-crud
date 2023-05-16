@@ -4,11 +4,15 @@ namespace Modules\Auth\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Modules\Auth\Contracts\Repositories\ResetSecretRepositoryInterface;
 use Modules\Auth\Contracts\Repositories\UserRepositoryInterface;
+use Modules\Auth\Traits\Responses\FormatsResetResponses;
 use Symfony\Component\HttpFoundation\Response;
 
-class EmailExistsForForgotPassword
+class EmailExistsForReset
 {
+    use FormatsResetResponses;
+
     public function __construct(private UserRepositoryInterface $repository)
     {
     }
@@ -16,16 +20,18 @@ class EmailExistsForForgotPassword
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next): mixed
     {
-        if (!$this->repository->emailExists($request->input('email'))) {
+        if (!$this->repository->emailExists($request->input('email'))
+        ) {
             // although the email in this case does not exist
             // we pretend that the email exists, and we have sent a code
             // to user's email
-            // TODO: implement
+            return $this->resetSecretSent();
         }
+
         return $next($request);
     }
 }
