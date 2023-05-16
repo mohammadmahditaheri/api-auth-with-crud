@@ -4,7 +4,7 @@ namespace Modules\Auth\Contracts\Repositories;
 
 use Modules\Auth\Models\ResetSecret;
 
-interface ResetSecretRepositoryInterface
+interface ResetPasswordRepoInterface
 {
     /**
      * @param array $data

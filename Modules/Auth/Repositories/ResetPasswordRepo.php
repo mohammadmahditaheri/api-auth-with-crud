@@ -4,11 +4,11 @@ namespace Modules\Auth\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-use Modules\Auth\Contracts\Repositories\ResetSecretRepositoryInterface;
+use Modules\Auth\Contracts\Repositories\ResetPasswordRepoInterface;
 use Modules\Auth\Models\ResetSecret;
 use Modules\Auth\Models\User;
 
-class ResetSecretRepository implements ResetSecretRepositoryInterface
+class ResetPasswordRepo implements ResetPasswordRepoInterface
 {
     /**
      * @inheritDoc
