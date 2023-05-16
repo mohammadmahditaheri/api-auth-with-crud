@@ -17,6 +17,7 @@ class ModuleServiceProvider extends ServiceProvider
         $this->app->register(UserRepositoryProvider::class);
         $this->app->register(MailHandlerProvider::class);
         $this->app->register(ResetPasswordRepoProvider::class);
+        $this->app->register(SendResetSecretHandlerProvider::class);
     }
 
     /**
