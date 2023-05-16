@@ -37,7 +37,7 @@ class MailHandler implements MailHandlerInterface
         };
     }
 
-    public function initSecret(): void
+    private function initSecret(): void
     {
         $minimum = 100000;
         $maximum = 999999;
