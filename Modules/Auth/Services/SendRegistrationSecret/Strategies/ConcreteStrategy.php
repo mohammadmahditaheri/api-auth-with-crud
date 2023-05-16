@@ -1,11 +1,11 @@
 <?php
 
-namespace Modules\Auth\Services\MailSecret\Strategies;
+namespace Modules\Auth\Services\SendRegistrationSecret\Strategies;
 
 use Exception;
-use Modules\Auth\Contracts\Services\MailSecret\SendMailStrategyInterface;
+use Modules\Auth\Contracts\Services\SendRegistrationSecret\SendRegistrationSecretInterface;
 
-class ConcreteSendMailStrategy implements SendMailStrategyInterface
+class ConcreteStrategy implements SendRegistrationSecretInterface
 {
     public function send(string $email, string $code): bool
     {

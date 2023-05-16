@@ -5,8 +5,8 @@ namespace Modules\Auth\Actions;
 use Modules\Auth\Contracts\Repositories\UserRepositoryInterface;
 use Modules\Auth\Contracts\Services\MailSecretHandler\MailHandlerInterface;
 use Modules\Auth\Models\User;
-use Modules\Auth\Services\MailSecret\SendMailContext;
-use Modules\Auth\Services\MailSecret\Strategies\ConcreteSendMailStrategy;
+use Modules\Auth\Services\SendRegistrationSecret\SendRegistrationSecretContext;
+use Modules\Auth\Services\SendRegistrationSecret\Strategies\ConcreteStrategy;
 
 class MailHandler implements MailHandlerInterface
 {
@@ -29,11 +29,11 @@ class MailHandler implements MailHandlerInterface
         return $context->send($user->email, $this->secret());
     }
 
-    private function makeMailContext(): SendMailContext
+    private function makeMailContext(): SendRegistrationSecretContext
     {
         return match (config('mail.default')) {
             // different strategies
-            default => new SendMailContext(new ConcreteSendMailStrategy())
+            default => new SendRegistrationSecretContext(new ConcreteStrategy())
         };
     }
 
