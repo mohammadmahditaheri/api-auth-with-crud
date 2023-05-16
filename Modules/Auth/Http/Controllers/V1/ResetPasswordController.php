@@ -3,16 +3,18 @@
 namespace Modules\Auth\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ForgotPasswordRequest;
-use App\Http\Requests\ResetPasswordRequest;
 use Illuminate\Http\Response;
 use Modules\Auth\Contracts\Actions\SendResetSecretHandlerInterface;
 use Modules\Auth\Contracts\Repositories\ResetPasswordRepoInterface;
+use Modules\Auth\Http\Requests\ForgotPasswordRequest;
+use Modules\Auth\Http\Requests\ResetPasswordRequest;
+use Modules\Auth\Traits\Responses\FormatsResetErrorResponses;
 use Modules\Auth\Traits\Responses\FormatsResetResponses;
 
 class ResetPasswordController extends Controller
 {
-    use FormatsResetResponses;
+    use FormatsResetResponses,
+        FormatsResetErrorResponses;
 
     public function __construct(
         private SendResetSecretHandlerInterface $handler,
@@ -37,6 +39,15 @@ class ResetPasswordController extends Controller
 
     public function resetPassword(ResetPasswordRequest $request)
     {
-        //
+        $result = $this->repository->reset(
+            newPassword: $request->validated('password'),
+            email: $request->validated('email'),secret: $request->validated('secret')
+        );
+
+        if (!$result) {
+            throw $this->resetFailed();
+        }
+
+        return $this->resetPasswordIsSuccessful();
     }
 }
