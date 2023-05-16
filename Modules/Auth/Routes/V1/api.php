@@ -23,6 +23,12 @@ Route::post('/finalize-register', FinalizeRegisterController::class)
 // login
 Route::post('/login', LoginController::class)->name('login');
 
-// forgot: request reset password action
-Route::post('/forgot-password', [ResetPasswordController::class, 'forgotPassword']);
+// forgot password action (request reset password secret)
+Route::post('/forgot-password', [ResetPasswordController::class, 'forgotPassword'])
+    ->middleware([
+        'email_exists_for_reset',
+        'has_not_requested_reset_recently'
+    ]);
+
+// reset password
 Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']);
