@@ -4,7 +4,7 @@ namespace Modules\Auth\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Modules\Auth\Actions\MailHandler;
-use Modules\Auth\Contracts\Actions\MailSecretHandler\MailHandlerInterface;
+use Modules\Auth\Contracts\Actions\MailHandlerInterface;
 
 class MailHandlerProvider extends ServiceProvider
 {
