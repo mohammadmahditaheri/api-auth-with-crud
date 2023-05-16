@@ -4,7 +4,7 @@ namespace Modules\Auth\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Modules\Auth\Contracts\Repositories\ResetSecretRepositoryInterface;
+use Modules\Auth\Contracts\Repositories\ResetPasswordRepoInterface;
 use Modules\Auth\Traits\Responses\FormatsResetResponses;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -12,7 +12,7 @@ class HasntRequestedResetRecently
 {
     use FormatsResetResponses;
 
-    public function __construct(private ResetSecretRepositoryInterface $resetRepository)
+    public function __construct(private ResetPasswordRepoInterface $resetRepository)
     {
     }
 

@@ -4,7 +4,7 @@ namespace Modules\Auth\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
-use Modules\Auth\Contracts\Actions\MailSecretHandler\MailHandlerInterface;
+use Modules\Auth\Contracts\Actions\MailHandlerInterface;
 use Modules\Auth\Contracts\Repositories\UserRepositoryInterface;
 use Modules\Auth\Http\Requests\RegisterUserRequest;
 use Modules\Auth\Traits\Responses\FormatsAuthResponses;

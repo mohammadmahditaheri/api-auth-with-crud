@@ -4,10 +4,8 @@ namespace Modules\Auth\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Modules\Auth\Contracts\Repositories\ResetSecretRepositoryInterface;
 use Modules\Auth\Contracts\Repositories\UserRepositoryInterface;
 use Modules\Auth\Traits\Responses\FormatsResetResponses;
-use Symfony\Component\HttpFoundation\Response;
 
 class EmailExistsForReset
 {
